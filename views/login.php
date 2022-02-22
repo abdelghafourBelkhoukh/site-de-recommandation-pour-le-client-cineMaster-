@@ -1,3 +1,13 @@
+<?php
+
+require "../controllers/myAcount_controller.php";
+
+if (isset ($_SESSION['id'])){
+header('location: ./myAcount.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,17 +25,16 @@
 
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light py-3">
-            <div class="container" style="margin-left: 20px; height: 50px;">
+            <div class="container">
                 <!-- Navbar Brand -->
                 <a href="#" class="navbar-brand">
-                    <img src="../images/cinemaster.png" alt="logo" width="150">
+                    <img src="../images/cinemaster.png" alt="logo">
                 </a>
             </div>
         </nav>
     </header>
 
     <div class="container1">
-
         <!-- Registeration Form -->
         <div class="form">
             <form action="../controllers/login_controller.php" method="POST">
@@ -64,7 +73,7 @@
                     </div>
 
                 </div>
-            </form> 
+            </form>
         </div>
         <div class="image-backround">
             <img src="../images/pexels-pavel-danilyuk-7234219.jpg" alt="image">

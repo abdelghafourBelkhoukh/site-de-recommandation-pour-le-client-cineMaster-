@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require "../models/dataBase.php";
 
 class LoginController extends Users
@@ -9,9 +11,9 @@ class LoginController extends Users
     {
         $this->firstName = $_POST['FirstName'];
         $this->userName=$_POST['UserName'];
-        $this->lastName=$_POST['LastName'];
+        $this->lastName=strtoupper($_POST['LastName']);
         $this->email=$_POST['Email'];
-        $this->password=$_POST['password'];
+        $this->password=md5($_POST['password']);
 
         $signUp = new Users();
         $signUp->createAcount($this->firstName,$this->lastName,$this->email,$this->password,$this->userName);
@@ -20,42 +22,58 @@ class LoginController extends Users
     function login()
     {
         $userNM=$_POST['userName'];
-        $pwd=$_POST['pwd'];
-
+        $pwd=md5($_POST['pwd']);
         $login = new Users();
         $resu=$login->loginCheck($userNM,$pwd);
         return $resu;
     }
+ 
+    // function alert(){
+    //     $alert='<div class="alert alert-danger" role="alert">
+    //     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    //     <span class="sr-only">Error:</span>
+    //     Enter a valid email address
+    //     </div>';
+    //     return $alert;
+    // }
+    
 
 }
 
 
-
-
+//create account
 if (isset ($_POST['submit_signin'])){
     $signUp = new LoginController();
     $signUp->signUp();
     header('location: ../views/login.php');
 }
-if (isset ($_POST['submit_login'])){
 
+//check account
+if (isset ($_POST['submit_login'])){
+    
     $login = new LoginController();
     $result=$login->login();
     $getUser=mysqli_fetch_assoc($result);
 
-    $id=$getUser['id'];
-    $firstName=$getUser['firstName'];
-    $lastName=$getUser['lastName'];
-
     if ($getUser) {
-        header("location: ../views/myAcount.php?id=$id&firstName=$firstName&lastName=$lastName");
+        $_SESSION['id']=$getUser['id'];
+        $_SESSION['firstName']=$getUser['firstName'];
+        $_SESSION['lastName']=$getUser['lastName'];
+        header("location: ../views/myAcount.php");
     } else {
-
         header('location: ../views/login.php');
     }
 }
 
-// $name = 'Abdelghafour belkhoukh';
+
+
+//log out
+if (isset ($_POST['logout'])){
+    unset($_SESSION['id']);
+    header('location: ../views/login.php');
+
+}
+
 
 
 

@@ -15,11 +15,11 @@
 
     <!-- Navbar-->
     <header class="header">
-        <nav class="navbar navbar-expand-lg navbar-light py-3">
-            <div class="container" style="margin-left: 20px; height: 50px;">
+        <nav class="navbar navbar-expand-lg navbar-light py-3" style="height: 90px;">
+            <div class="container" style="margin: 0;">
                 <!-- Navbar Brand -->
                 <a href="#" class="navbar-brand">
-                    <img src="../images/cinemaster.png" alt="logo" width="150">
+                    <img src="../images/cinemaster.png" alt="logo" >
                 </a>
             </div>
         </nav>
