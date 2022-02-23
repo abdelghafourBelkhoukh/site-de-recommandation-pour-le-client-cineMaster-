@@ -44,7 +44,7 @@ class Posts extends Connexion{
     public function getPosts(){
         
         $conn = $this->connect();
-        $query = "select * from posts";
+        $query = "select * from posts ORDER BY id DESC";
         $res = mysqli_query($conn, $query);
         return $res;
     }
@@ -97,8 +97,15 @@ class Comments extends Connexion{
         
         $conn = $this->connect();
         $query = "select * from comments";
+        $query = "SELECT comments.id,comments.authorID ,comments.postID ,users.firstName ,users.lastName, comments.comment FROM comments INNER JOIN users ON comments.authorID=users.id ORDER BY id DESC;";
         $res = mysqli_query($conn, $query);
         return $res;
+    }
+
+    public function deleteComment($commentId,$authorId){
+        $conn = $this->connect();
+        $query = "DELETE FROM `comments` WHERE `id`=$commentId and `authorID`=$authorId;";
+        mysqli_query($conn, $query);
     }
 
 

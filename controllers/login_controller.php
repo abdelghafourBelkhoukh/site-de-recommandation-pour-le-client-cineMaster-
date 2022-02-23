@@ -9,7 +9,7 @@ class LoginController extends Users
     
     function signUp()
     {
-        $this->firstName = $_POST['FirstName'];
+        $this->firstName = ucfirst($_POST['FirstName']);
         $this->userName=$_POST['UserName'];
         $this->lastName=strtoupper($_POST['LastName']);
         $this->email=$_POST['Email'];
@@ -28,14 +28,7 @@ class LoginController extends Users
         return $resu;
     }
  
-    // function alert(){
-    //     $alert='<div class="alert alert-danger" role="alert">
-    //     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-    //     <span class="sr-only">Error:</span>
-    //     Enter a valid email address
-    //     </div>';
-    //     return $alert;
-    // }
+    
     
 
 }

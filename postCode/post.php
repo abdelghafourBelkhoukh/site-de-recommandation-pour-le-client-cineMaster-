@@ -1,75 +1,4 @@
-<?php
-
-require "login_controller.php";
-
-class MyAccount extends LoginController
-{
-    public $id;
-    public $firstName;
-    public $lastName;
-
-    function __construct()
-    {
-        $this->id = $_SESSION['id'];
-        $this->firstName = $_SESSION['firstName'];
-        $this->lastName = $_SESSION['lastName'];
-    }
-}
-
-class MyPosts extends Posts
-{
-    public $title = '';
-    public $category = '';
-    public $description = '';
-    public $image = '';
-    public $authorId = '';
-
-    function sendPostData()
-    {
-        $title = $_POST['title'];
-        $category = $_POST['category'];
-        $description = $_POST['description'];
-        $image = '../images/post/' . $_POST['image'];
-        $authorId = $_SESSION['id'];
-
-        $create = new Posts();
-        $create->createPost($title, $category, $description, $image, $authorId);
-    }
-
-    function getpost()
-    {
-        $getpost = new Posts();
-        $resu = $getpost->getPosts();
-        // $getcomments = new Comments();
-        // $commentResult = $getcomments->getComments();
-        // $commentRows = mysqli_fetch_all($commentResult);
-        // var_dump($commentRows);
-
-        $rows = mysqli_fetch_all($resu);
-        $Length = mysqli_num_rows($resu);
-        $cont = 0;
-        for ($i = 0; $i < $Length; $i++) {
-
-            //get posts data
-            $postId = $rows[$i][0];
-            $authorId = $rows[$i][1];
-            $image = $rows[$i][2];
-            $title = $rows[$i][3];
-            $category = $rows[$i][4];
-            $description = $rows[$i][5];
-            $cont += 1;
-
-            //get author Name
-            $authorName = new Posts();
-            $result = $authorName->getAuthorName($authorId);
-            $FullName = mysqli_fetch_assoc($result);
-            $firstName = $FullName['firstName'];
-            $lastName = $FullName['lastName'];
-?>
-
-            <!-- pop up form modal (update) ########################################################################################################################################## -->
-
-            <div class="modal fade " id="<?php echo 'editmodal' . $cont ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade " id="<?php echo 'editmodal' . $cont ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -167,7 +96,7 @@ class MyPosts extends Posts
                             <img src="<?php echo $image ?>" class="card-img-top" alt="..." />
                         </div>
                         <!-- pop up comment -->
-                        <a type="button" class="<?php echo 'commentView' . $cont ?> mt-4 ps-2 text-dark" data-bs-toggle="modal" data-bs-target="<?php echo '#commentsModal' . $cont ?>" data-bs-whatever="comments">All Comments</a>
+                        <a type="button" class="<?php echo 'commentView' . $cont ?> mt-4 ps-2 " data-bs-toggle="modal" data-bs-target="<?php echo '#commentsModal' . $cont ?>" data-bs-whatever="comments">All Comments</a>
                         <div class="modal fade " id="<?php echo 'commentsModal' . $cont ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -201,13 +130,27 @@ class MyPosts extends Posts
                                                         </div>
                                                         <div class="options">
                                                             <div class="dropdown">
-                                                                <a <?php if ($comment['authorID'] != $_SESSION['id']) {
+                                                                <a <?php if ($authorId != $_SESSION['id']) {
                                                                         echo 'style="display: none;"';
                                                                     } ?> class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                                                     <i style="margin-right: 19px; font-size: 25px;" class="fa-solid fa-ellipsis "></i>
                                                                 </a>
                                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                                    <li><a href="../controllers/myAcount_controller.php?deleteComment=<?php echo $comment['id'] ?>"><button class="form-control">delete</button></a></li>
+                                                                    <li><input style="MARGIN-LEFT: 9%;" type="button" class="form-control <?php echo 'editbtn' . $cont ?>" data-bs-toggle="modal" data-bs-target="<?php echo '#editmodal' . $cont ?>" data-bs-whatever="Update" value="Edit" />
+                                                                        <script>
+                                                                            $(document).ready(function() {
+                                                                                $(<?php echo '.editbtn' . $cont ?>).on('click', function() {
+                                                                                    $(<?php echo '#editmodal' . $cont ?>).modal('show');
+                                                                                })
+                                                                            })
+                                                                            $(document).ready(function() {
+                                                                                $(<?php echo '.commentbtn' . $cont ?>).on('click', function() {
+                                                                                    $(<?php echo '#commentmodal' . $cont ?>).modal('show');
+                                                                                })
+                                                                            })
+                                                                        </script>
+                                                                    </li>
+                                                                    <li><a href="../controllers/myAcount_controller.php?delete=<?php echo $postId ?>"><button class="form-control">delete</button></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -254,13 +197,28 @@ class MyPosts extends Posts
                                         </div>
                                         <div class="options">
                                             <div class="dropdown">
-                                                <a <?php if ($comment['authorID'] != $_SESSION['id']) {
-                                                                        echo 'style="display: none;"';
-                                                                    } ?> class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a <?php //if ($authorId != $_SESSION['id']) {
+                                                    //echo 'style="display: none;"';
+                                                    //} 
+                                                    ?> class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i style="margin-right: 19px; font-size: 25px;color:black" class="fa-solid fa-ellipsis "></i>
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <li><a href="../controllers/myAcount_controller.php?deleteComment=<?php echo $comment['id'] ?>"><button class="form-control">delete</button></a></li>
+                                                    <li><input style="MARGIN-LEFT: 9%;" type="button" class="btn <?php echo 'editbtn' . $cont ?>" data-bs-toggle="modal" data-bs-target="<?php echo '#editmodal' . $cont ?>" data-bs-whatever="Update" value="Edit" />
+                                                        <script>
+                                                            $(document).ready(function() {
+                                                                $(<?php echo '.editbtn' . $cont ?>).on('click', function() {
+                                                                    $(<?php echo '#editmodal' . $cont ?>).modal('show');
+                                                                })
+                                                            })
+                                                            $(document).ready(function() {
+                                                                $(<?php echo '.commentbtn' . $cont ?>).on('click', function() {
+                                                                    $(<?php echo '#commentmodal' . $cont ?>).modal('show');
+                                                                })
+                                                            })
+                                                        </script>
+                                                    </li>
+                                                    <li><a href="../controllers/myAcount_controller.php?delete=<?php echo $postId ?>"><button class="btn">delete</button></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -280,92 +238,3 @@ class MyPosts extends Posts
 
                     </div>
                 </div>
-    <?php
-        }
-    }
-
-
-
-    function deletePosts()
-    {
-        $id = $_GET['delete'];
-        $delete = new Posts;
-        $delete->deletePost($id, $_SESSION['id']);
-    }
-    
-    function deleteComment()
-    {
-        $id = $_GET['deleteComment'];
-        $deleteComment = new Comments;
-        $deleteComment->deleteComment($id, $_SESSION['id']);
-    }
-    //get post data for update
-
-    function UpdatePosts()
-    {
-        $title = $_POST['title'];
-        $category = $_POST['category'];
-        $description = $_POST['description'];
-        $image = '../images/post/' . $_POST['image'];
-        $authorId = $_SESSION['id'];
-        $id = $_POST['postId'];
-        $Update = new Posts();
-        $Update->UpdatePost($title, $category, $description, $image, $id, $authorId);
-    }
-
-    function addComment()
-    {
-        $authorId = $_SESSION['id'];
-        $postId = $_POST['postId'];
-        $comment = $_POST['comment'];
-        $addcomment = new comments();
-        $addcomment->addComment($postId, $comment, $authorId);
-    }
-}
-
-//add post
-if (isset($_POST['AddPost'])) {
-    $post = new MyPosts();
-    $post->sendPostData();
-    header('location: ../views/myAcount.php');
-}
-
-//set posts and comment
-if (isset($_SESSION['id'])) {
-    $getpost = new MyPosts();
-}
-
-//delete post
-if (isset($_GET['delete'])) {
-    $delete = new MyPosts();
-    $delete->deletePosts();
-    header('location: ../views/myAcount.php');
-}
-
-//update post
-if (isset($_POST['submit_update'])) {
-    $Edit = new MyPosts();
-    $Edit->UpdatePosts();
-    header('location: ../views/myAcount.php');
-}
-
-
-
-// add comment;
-
-if (isset($_POST['addcomment'])) {
-    
-    $addComment = new MyPosts();
-    $addComment->addComment();
-    $_SESSION['color'] = 'success';
-    header('location: ../views/myAcount.php');
-}
-
-//delete comment
-if (isset($_GET['deleteComment'])) {
-    $deleteComment = new MyPosts();
-    $deleteComment->deleteComment();
-    header('location: ../views/myAcount.php');
-}
-
-    ?>

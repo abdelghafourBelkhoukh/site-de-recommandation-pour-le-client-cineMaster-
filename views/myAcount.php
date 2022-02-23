@@ -52,6 +52,13 @@ if (!isset($_SESSION['id'])) {
       </div>
     </div>
     <div class="header_titre">
+      <!-- <div class="alert" >
+        <div class="alert alert-<?php //echo $_SESSION['color'] ?>" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span>
+          Comment Added
+        </div>
+      </div> -->
       <div class="left"></div>
       <div class="right">
         <p>
@@ -111,20 +118,20 @@ if (!isset($_SESSION['id'])) {
         </div>
       </div>
       <!-- pop up Model for Update post ########################################################################################################## -->
-    <!-- affichage des postes ######################################################################################################### -->
+      <!-- affichage des postes ######################################################################################################### -->
 
-    <?php
-    $getpost->getpost();
-    ?>
-
-
+      <?php
+      $getpost->getpost();
+      ?>
 
 
-  
 
 
-  <script src="../js/PopUp.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+
+      <script src="../js/PopUp.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>
