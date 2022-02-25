@@ -49,7 +49,7 @@ header('location: ./myAcount.php');
                                 <i class="fa fa-user text-muted"></i>
                             </span>
                         </div>
-                        <input id="UserName" type="text" name="userName" placeholder="UserName" class="form-control bg-white border-left-0 border-md">
+                        <input id="UserName" type="text" name="userName" placeholder="UserName" class="form-control bg-white border-left-0 border-md" required>
                     </div>
 
                     <!-- Password -->
@@ -59,7 +59,7 @@ header('location: ./myAcount.php');
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
                         </div>
-                        <input id="password" type="password" name="pwd" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                        <input id="password" type="password" name="pwd" placeholder="Password" class="form-control bg-white border-left-0 border-md" required>
                         <!-- <input type="checkbox" onclick="myFunction()">Show Password -->
                     </div>
 
@@ -79,7 +79,6 @@ header('location: ./myAcount.php');
         <div class="image-backround">
             <img src="../images/pexels-pavel-danilyuk-7234219.jpg" alt="image">
         </div>
-
     </div>
 
 

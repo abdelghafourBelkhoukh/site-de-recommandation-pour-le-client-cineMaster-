@@ -23,53 +23,45 @@ if (!isset($_SESSION['id'])) {
 
 <body>
   <header class="header">
-    <div class="cntainer fixed-top">
-      <div class="logo">
-        <img src="../images/logo3-.png" alt="" />
-      </div>
-      <div class="navbar">
-        <li>
-          <ul>
-            <a href="#" class="fw-bold">Home</a>
-          </ul>
-          <ul>
-            <a href="">Contact us</a>
-          </ul>
-        </li>
-      </div>
-      <div class="login">
-        <span class="pe-3">
-          <?php
-          $setUser = new MyAccount();  ?>
-          <a href=""><img class="" src="../images/avatar.webp" alt="images" /><?php echo  $setUser->firstName . ' ' . $setUser->lastName; ?></a>
-        </span>
-        <span class="pe-3">
-          <form action="../controllers/login_controller.php" method="POST">
-            <i class="fa-solid fa-right-from-bracket pe-2">
-              <input name="logout" type="submit" value="Log out" style="background: transparent; color: white; border: none" /></i>
-          </form>
-        </span>
-      </div>
-    </div>
+    <?php include_once '../include/header.php' ?>
     <div class="header_titre">
-      <!-- <div class="alert" >
-        <div class="alert alert-<?php //echo $_SESSION['color'] ?>" role="alert">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only">Error:</span>
-          Comment Added
-        </div>
-      </div> -->
-      <div class="left"></div>
+      <!-- <div class="left"></div>
       <div class="right">
         <p>
-          Hello <span><?php echo  $setUser->firstName; ?></span><br />
-          <!-- To Your Account -->
+          Hello <span><?php //echo  $setUser->firstName; 
+                      ?></span><br />
+          To Your Account
         </p>
-      </div>
+      </div> -->
+
+      <!-- <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../images/3.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../images/2.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../images/1.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div> -->
+
+
+
     </div>
   </header>
-  <div class="main">
-    <div class="add_post d-flex">
+  <div class="main" id="main">
+    <div class="add_post d-flex" id="addPost">
       <img class="" src="../images/avatar.webp" alt="images" />
       <!-- pop up model for add post ################################################################################################################### -->
       <div class="formm">
@@ -123,15 +115,17 @@ if (!isset($_SESSION['id'])) {
       <?php
       $getpost->getpost();
       ?>
+    </div>
+  </div>
+
+  <?php include_once '../include/footer.php' ?>
 
 
 
 
 
-
-
-      <script src="../js/PopUp.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="../js/PopUp.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>

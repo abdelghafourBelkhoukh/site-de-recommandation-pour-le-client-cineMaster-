@@ -52,6 +52,7 @@ if (isset ($_POST['submit_login'])){
         $_SESSION['id']=$getUser['id'];
         $_SESSION['firstName']=$getUser['firstName'];
         $_SESSION['lastName']=$getUser['lastName'];
+        $_SESSION['email']=$getUser['email'];
         header("location: ../views/myAcount.php");
     } else {
         header('location: ../views/login.php');
@@ -61,7 +62,7 @@ if (isset ($_POST['submit_login'])){
 
 
 //log out
-if (isset ($_POST['logout'])){
+if (isset ($_GET['logout'])){
     unset($_SESSION['id']);
     header('location: ../views/login.php');
 

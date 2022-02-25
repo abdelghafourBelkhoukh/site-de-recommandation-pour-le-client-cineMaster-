@@ -69,11 +69,11 @@ class Posts extends Connexion{
         return $res;
     }
 
-    function UpdatePost($title,$category,$description,$image,$id,$authorId)
+    function UpdatePost($Update)
     {
-        $Update = "UPDATE `posts` SET `image`='$image',`title`='$title',`category`='$category',`description`='$description' WHERE `id`=$id and `authorID`=$authorId; ";
-        $conn = $this->connect();
-        mysqli_query($conn, $Update);
+        
+    $conn = $this->connect();
+    mysqli_query($conn, $Update);
     }
     
 }
@@ -110,7 +110,3 @@ class Comments extends Connexion{
 
 
 }
-
-
-
-?>

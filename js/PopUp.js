@@ -6,6 +6,9 @@
 
 
 
-
-
-
+$(function () {
+    $(document).scroll(function () {
+      var $nav = $("..cntainer");
+      $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+    });
+  });

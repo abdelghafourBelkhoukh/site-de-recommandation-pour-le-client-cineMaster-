@@ -68,6 +68,9 @@ body {
   -webkit-box-direction: reverse;
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse;
+  background: #e0e0e0;
+  -webkit-box-shadow: 8px 8px 16px #b1b1b1, -8px -8px 16px #ffffff;
+          box-shadow: 8px 8px 16px #b1b1b1, -8px -8px 16px #ffffff;
 }
 
 .container {

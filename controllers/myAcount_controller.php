@@ -40,11 +40,6 @@ class MyPosts extends Posts
     {
         $getpost = new Posts();
         $resu = $getpost->getPosts();
-        // $getcomments = new Comments();
-        // $commentResult = $getcomments->getComments();
-        // $commentRows = mysqli_fetch_all($commentResult);
-        // var_dump($commentRows);
-
         $rows = mysqli_fetch_all($resu);
         $Length = mysqli_num_rows($resu);
         $cont = 0;
@@ -81,6 +76,7 @@ class MyPosts extends Posts
                         <div class="modal-body">
                             <form action="../controllers/myAcount_controller.php" method="post">
                                 <div class="mb-3">
+                                    <input type="hidden" name="idP" value="<?php echo 'idP' . $cont ?>">
                                     <input type="hidden" name="postId" value="<?php echo $postId ?>">
                                     <label for="recipient-name" class="col-form-label">Title:</label>
                                     <input type="text" class="form-control" id="recipient-name" value="<?php echo $title ?>" name="title" />
@@ -105,7 +101,7 @@ class MyPosts extends Posts
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Add picture:</label>
-                                    <input class="form-control" type="file" id="formFile" name="image" accept=".jpg, .jpeg, .png" value="<?php echo $image ?>" />
+                                    <input class="form-control" type="file" id="formFile" name="image" accept=".jpg, .jpeg, .png" />
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" class="btn btn-secondary" value="Update" name="submit_update">
@@ -123,7 +119,7 @@ class MyPosts extends Posts
             <!-- ########################################################################################################################################## -->
 
             <div class="post">
-                <div class="card">
+                <div class="card" id="<?php echo 'idP' . $cont ?>">
                     <div class="post-profil d-flex ">
                         <div class="profil">
                             <img class="" src="../images/avatar.webp" alt="images" />
@@ -134,7 +130,7 @@ class MyPosts extends Posts
                                 <a <?php if ($authorId != $_SESSION['id']) {
                                         echo 'style="display: none;"';
                                     } ?> class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i style="margin-right: 19px; font-size: 30px;" class="fa-solid fa-ellipsis"></i>
+                                    <i style="margin-right: 19px; font-size: 23px;" class="fa-solid fa-ellipsis"></i>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><input style="MARGIN-LEFT: 9%;" type="button" class="btn <?php echo 'editbtn' . $cont ?>" data-bs-toggle="modal" data-bs-target="<?php echo '#editmodal' . $cont ?>" data-bs-whatever="Update" value="Edit" />
@@ -189,7 +185,7 @@ class MyPosts extends Posts
                                                 if ($comment['postID'] == $postId) {
                                             ?>
                                                     <div class="modal-header">
-                                                        <div class="commented-section mt-2 ">
+                                                        <div class="commented-section mt-2 " >
                                                             <div class="d-flex flex-row align-items-center commented-user">
                                                                 <div class="profil">
                                                                     <!-- <img class="" src="../images/avatar.webp" alt="images" /> -->
@@ -200,27 +196,24 @@ class MyPosts extends Posts
                                                             <div class="comment-text-sm"><span><?php echo $comment['comment'] ?></span></div>
                                                         </div>
                                                         <div class="options">
-                                                            <div class="dropdown">
+                                                            <div class="dropdown ">
                                                                 <a <?php if ($comment['authorID'] != $_SESSION['id']) {
                                                                         echo 'style="display: none;"';
-                                                                    } ?> class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    <i style="margin-right: 19px; font-size: 25px;" class="fa-solid fa-ellipsis "></i>
+                                                                    } ?> href="../controllers/myAcount_controller.php?deleteComment=<?php echo $comment['id'] ?>" class="" style="color: black;" type="button">
+                                                                    <i style="margin-right: 19px;color:black" class="fa-solid fa-trash-can"></i>
                                                                 </a>
-                                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                                    <li><a href="../controllers/myAcount_controller.php?deleteComment=<?php echo $comment['id'] ?>"><button class="form-control">delete</button></a></li>
-                                                                </ul>
                                                             </div>
                                                         </div>
                                                     </div>
                                             <?php }
                                             } ?>
                                             <form action="../controllers/myAcount_controller.php" method="POST">
-                                                <div class="modal-body d-flex">
+                                                <div class="modal-body d-flex" >
                                                     <input type="message" placeholder="write a comment..." class="form-control me-3" name="comment" />
-
+                                                    <input type="hidden" name="idPC" value="<?php echo 'idPC' . $cont ?>">
                                                     <input type="hidden" name="postId" value="<?php echo $postId ?>">
                                                     <input type="hidden" name="auhorId" value="<?php echo $authorId ?>">
-                                                    <input type="submit" class="btn " name="addcomment" value="Add">
+                                                    <input type="submit" class="btn " name="addcomment" value="Add" required>
                                                 </div>
                                             </form>
                                         </div>
@@ -242,7 +235,7 @@ class MyPosts extends Posts
                                 if ($comment['postID'] == $postId && $ContComment < 3) {
                                     $ContComment++; ?>
                                     <div class="modal-header">
-                                        <div class="commented-section mt-2 ">
+                                        <div class="commented-section mt-2 " id="<?php echo 'idPC' . $cont ?>">
                                             <div class="d-flex flex-row align-items-center commented-user">
                                                 <div class="profil">
                                                     <!-- <img class="" src="../images/avatar.webp" alt="images" /> -->
@@ -255,13 +248,10 @@ class MyPosts extends Posts
                                         <div class="options">
                                             <div class="dropdown">
                                                 <a <?php if ($comment['authorID'] != $_SESSION['id']) {
-                                                                        echo 'style="display: none;"';
-                                                                    } ?> class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i style="margin-right: 19px; font-size: 25px;color:black" class="fa-solid fa-ellipsis "></i>
+                                                        echo 'style="display: none;"';
+                                                    } ?> href="../controllers/myAcount_controller.php?deleteComment=<?php echo $comment['id'] ?>" class="" style="color: black;" type="button">
+                                                    <i style="margin-right: 19px;color:black" class="fa-solid fa-trash-can"></i>
                                                 </a>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <li><a href="../controllers/myAcount_controller.php?deleteComment=<?php echo $comment['id'] ?>"><button class="form-control">delete</button></a></li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -270,7 +260,7 @@ class MyPosts extends Posts
                             <form action="../controllers/myAcount_controller.php" method="POST">
                                 <div class="modal-body d-flex">
                                     <input type="message" placeholder="write a comment..." class="form-control me-3" name="comment" />
-
+                                    <input type="hidden" name="idPC" value="<?php echo 'idPC' . $cont ?>">
                                     <input type="hidden" name="postId" value="<?php echo $postId ?>">
                                     <input type="hidden" name="auhorId" value="<?php echo $authorId ?>">
                                     <input type="submit" class="btn " name="addcomment" value="Add">
@@ -292,7 +282,7 @@ class MyPosts extends Posts
         $delete = new Posts;
         $delete->deletePost($id, $_SESSION['id']);
     }
-    
+
     function deleteComment()
     {
         $id = $_GET['deleteComment'];
@@ -309,8 +299,13 @@ class MyPosts extends Posts
         $image = '../images/post/' . $_POST['image'];
         $authorId = $_SESSION['id'];
         $id = $_POST['postId'];
-        $Update = new Posts();
-        $Update->UpdatePost($title, $category, $description, $image, $id, $authorId);
+        if (file_exists($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
+            $Update = "UPDATE `posts` SET `image`='$image',`title`='$title',`category`='$category',`description`='$description' WHERE `id`=$id and `authorID`=$authorId; ";
+        } else {
+            $Update = "UPDATE `posts` SET `title`='$title',`category`='$category',`description`='$description' WHERE `id`=$id and `authorID`=$authorId; ";
+        }
+        $Edit = new Posts();
+        $Edit->UpdatePost($Update);
     }
 
     function addComment()
@@ -344,9 +339,10 @@ if (isset($_GET['delete'])) {
 
 //update post
 if (isset($_POST['submit_update'])) {
+    $idP=$_POST['idP'];
     $Edit = new MyPosts();
     $Edit->UpdatePosts();
-    header('location: ../views/myAcount.php');
+    header('location: ../views/myAcount.php#'.$idP);
 }
 
 
@@ -354,11 +350,11 @@ if (isset($_POST['submit_update'])) {
 // add comment;
 
 if (isset($_POST['addcomment'])) {
-    
+    $idPC=$_POST['idPC'];
     $addComment = new MyPosts();
     $addComment->addComment();
     $_SESSION['color'] = 'success';
-    header('location: ../views/myAcount.php');
+    header('location: ../views/myAcount.php#'.$idPC);
 }
 
 //delete comment

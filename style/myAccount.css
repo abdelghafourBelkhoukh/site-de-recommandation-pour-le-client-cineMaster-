@@ -4,24 +4,50 @@
 }
 
 body {
-  background-color: black;
+  background-color: white;
+}
+
+i {
+  font-size: 20px !important;
 }
 
 .header {
-  background-image: url("../images/bg.png");
+  background-image: url("../images/3.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   width: 100%;
   height: 100vh;
+  background-position-y: -150px;
+}
+
+@media screen and (max-width: 300px) {
+  .header {
+    background-image: none;
+    width: 0;
+    height: 15vh;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    background-image: none;
+    width: 0;
+    height: 15vh;
+  }
 }
 
 .header .header_titre {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 3vh;
+  margin-top: 0;
   width: 100%;
-  height: 90vh;
+}
+
+@media screen and (min-width: 900px) {
+  .header .header_titre {
+    display: none;
+  }
 }
 
 .header .header_titre .alert {
@@ -63,31 +89,33 @@ body {
   width: 50%;
 }
 
-.cntainer {
+.header .cntainer {
   margin: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
   height: auto;
-  background-color: black;
+  background-color: #1a1a23;
 }
 
-.cntainer img {
+.header .cntainer img {
   width: 80%;
 }
 
-.logo {
+.header .cntainer .logo {
   height: 100%;
   width: 20%;
 }
 
-.navbar {
+.header .cntainer .navbar {
   width: 50%;
   height: 100%;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
 }
 
-.navbar li {
+.header .cntainer .navbar li {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -98,17 +126,17 @@ body {
   padding: 23px 0 0 100px;
 }
 
-.navbar li ul a {
+.header .cntainer .navbar li ul a {
   text-decoration: none;
   font-size: 16px;
   color: white;
 }
 
-.navbar li ul a:hover {
+.header .cntainer .navbar li ul a:hover {
   color: #a72211;
 }
 
-.login {
+.header .cntainer .login {
   width: 32%;
   height: 100%;
   display: -webkit-box;
@@ -120,38 +148,38 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 6px;
+  padding-top: 19px;
 }
 
-.login img {
+.header .cntainer .login img {
   vertical-align: middle;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-.login a {
+.header .cntainer .login a {
   text-decoration: none;
   font-size: 16px;
   color: white;
 }
 
-.login a:hover {
+.header .cntainer .login a:hover {
   color: #a72211;
 }
 
-.login span {
+.header .cntainer .login span {
   color: white;
-  padding-top: 13px;
+  padding-top: 12px;
 }
 
-.login span input {
+.header .cntainer .login span input {
   height: 20px;
   padding-bottom: 23px;
 }
 
-.btn-danger {
+.header .cntainer .btn-danger {
   background-color: white;
   border-color: black;
 }
@@ -159,11 +187,10 @@ body {
 .main {
   width: 60%;
   height: auto;
-  margin: 5% 20% 10% 20%;
+  margin: 3% 20% 5% 20%;
 }
 
 .main .colorpost {
-  background-color: cyan;
   text-align: center;
   padding: 10%;
   margin-top: 5%;
@@ -211,6 +238,10 @@ body {
   margin-top: 5%;
   width: 100%;
   height: auto;
+  border-radius: 19px;
+  background: black;
+  -webkit-box-shadow: 2px 8px 16px #b1b1b1, -8px -8px 30px #ffffff;
+          box-shadow: 2px 8px 16px #b1b1b1, -8px -8px 30px #ffffff;
 }
 
 .main .post .card {
@@ -292,5 +323,12 @@ body {
 
 .post .card .card-body .modal-content .modal-header .options .dropdown-toggle::after {
   display: none;
+}
+
+.btn-check:focus + .btn,
+.btn:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25) !important;
+          box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25) !important;
 }
 /*# sourceMappingURL=myAccount.css.map */
